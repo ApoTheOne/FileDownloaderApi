@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27004.2002
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileDownloader", "FileDownloader\FileDownloader.csproj", "{FACE0789-5FA8-49A1-A198-2C253DD1E4AE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileDownloader.Tests", "FileDownloader.Tests\FileDownloader.Tests.csproj", "{69F6162B-EEFC-47AF-96D6-435BEE48661B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FACE0789-5FA8-49A1-A198-2C253DD1E4AE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FACE0789-5FA8-49A1-A198-2C253DD1E4AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FACE0789-5FA8-49A1-A198-2C253DD1E4AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FACE0789-5FA8-49A1-A198-2C253DD1E4AE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{69F6162B-EEFC-47AF-96D6-435BEE48661B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{69F6162B-EEFC-47AF-96D6-435BEE48661B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{69F6162B-EEFC-47AF-96D6-435BEE48661B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{69F6162B-EEFC-47AF-96D6-435BEE48661B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {039D5E05-41C7-4801-97F9-62C32CA26AD9}
+	EndGlobalSection
+EndGlobal

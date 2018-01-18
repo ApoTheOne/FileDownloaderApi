@@ -1,0 +1,41 @@
+﻿@using System;
+@using FileDownloader.Models;
+@model ImageList
+
+
+@{ var sPath = "api//values/DownloadSingleFile?id=1&name=Dolphin";}
+@{ var mPath = "api//values/DownloadMultipleFile";}
+
+<div class="jumbotron">
+    <h1>File Uploader</h1>
+    <p class="lead">A test project created to download files using APIs.</p>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="col-md-6">
+            <h2>Single File Downloader</h2>
+            <a class="btn btn-default" href=@sPath>Click here to download</a>
+        </div>
+    </div>
+
+    <div class="col-md-12">
+        <div class="col-md-4">
+            <h2>Multiple File Downloader</h2>
+            <h4>Select Files to download</h4>
+        </div>
+        @foreach (Image img in Model)
+        {
+            <div class="imageOptions">
+                @Html.HiddenFor(x => img.Id, new {@class = "hdnId" })
+                @Html.DisplayFor(x => img.Name)
+                @Html.CheckBoxFor(x => img.Selected, new { value = img.Selected, @checked = img.Selected, @class = "chkBox" })
+                @*@Html.CheckBox("chk_options")*@
+            </div>
+        }
+        <div class="col-md-4">
+        </div>
+        <div class="col-md-4">
+            <p><a class="btn btn-default" href="" onclick="Download()">Download Multiple Files</a></p>
+        </div>
+    </div>
+</div>
