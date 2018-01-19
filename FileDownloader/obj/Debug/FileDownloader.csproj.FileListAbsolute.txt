@@ -46,3 +46,5 @@ G:\GitHub Projects\FileDownloaderApi\FileDownloader\obj\Debug\FileDownloader.csp
 G:\GitHub Projects\FileDownloaderApi\FileDownloader\obj\Debug\FileDownloader.csproj.CoreCompileInputs.cache
 G:\GitHub Projects\FileDownloaderApi\FileDownloader\obj\Debug\FileDownloader.dll
 G:\GitHub Projects\FileDownloaderApi\FileDownloader\obj\Debug\FileDownloader.pdb
+G:\GitHub Projects\FileDownloaderApi\FileDownloader\bin\DotNetZip.dll
+G:\GitHub Projects\FileDownloaderApi\FileDownloader\bin\DotNetZip.xml

@@ -7,6 +7,8 @@ using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Web.Http;
+using System.IO.Compression;
+using Ionic.Zip;
 
 namespace FileDownloader.Controllers
 {
@@ -26,7 +28,7 @@ namespace FileDownloader.Controllers
                     response.Content = new StreamContent(fileStream);
                     response.Content.Headers.ContentType = new MediaTypeHeaderValue("application/octet-stream");
                     response.Content.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment");
-                    response.Content.Headers.ContentDisposition.FileName = name;                    
+                    response.Content.Headers.ContentDisposition.FileName = name;
                     return response;
                 }
             }
@@ -38,10 +40,9 @@ namespace FileDownloader.Controllers
             return new HttpResponseMessage(HttpStatusCode.NotFound);
         }
 
-        [HttpGet]
+        [HttpPost]
         public HttpResponseMessage DownloadMultipleFile(ImagesRequest data)
         {
-            var content = new MultipartContent();
             var ids = new List<int>();
             List<Image> images = new List<Image>();
             foreach (var obj in data)
@@ -49,31 +50,38 @@ namespace FileDownloader.Controllers
                 ids.Add(obj.Id);
                 images.Add(ImageList.GetImage(obj.Id));
             }
-            var objectContent = new ObjectContent<List<int>>(ids, new System.Net.Http.Formatting.JsonMediaTypeFormatter());
-            content.Add(objectContent);
-            foreach (Image img in images)
+
+            var archive = AppDomain.CurrentDomain.BaseDirectory + "/archive.zip";
+            var temp = AppDomain.CurrentDomain.BaseDirectory + "/temp";
+
+            // clear any existing archive
+            if (System.IO.File.Exists(archive))
             {
-                ids.Add(img.Id);
-
-                string fullPath = $"{AppDomain.CurrentDomain.BaseDirectory}/images/{img.Id}.jpg";
-
-                var file1Content = new StreamContent(new FileStream(fullPath, FileMode.Open));
-                file1Content.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("image/jpeg");
-                content.Add(file1Content);
-
-                //var file2Content = new StreamContent(new FileStream(@"c:\temp\test.txt", FileMode.Open));
-                //file2Content.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("text/plain");
-                //content.Add(file2Content);                
+                System.IO.File.Delete(archive);
             }
-            var response = new HttpResponseMessage();
-            response.Content = content;
-            return response ?? new HttpResponseMessage(HttpStatusCode.NotFound);
-        }
 
-        
-        // POST api/values
-        public void Post([FromBody]string value)
-        {
+            // empty the temp folder
+            //Directory.EnumerateFiles(temp).ToList().ForEach(f => System.IO.File.Delete(f));
+            
+            using (ZipFile zip = new ZipFile())
+            {
+                //zip.word = word;
+                foreach (var img in images)
+                {
+                    string fullPath = $"{AppDomain.CurrentDomain.BaseDirectory}\\Content\\images\\{img.Id}.jpg";
+                    //System.IO.File.Copy(fullPath, Path.Combine(temp, Path.GetFileName(fullPath)));
+                    zip.AddFile(fullPath);
+                }
+
+                zip.Save(temp + "\\" +"ZipDownload.zip");
+                var pushStreamContent = new PushStreamContent((stream, content, context) =>
+                {
+                    zip.Save(stream);
+                    stream.Close(); // After save we close the stream to signal that we are done writing.
+                }, "application/zip");
+
+                return new HttpResponseMessage(HttpStatusCode.OK) { Content = pushStreamContent };
+            }
         }
 
         // PUT api/values/5

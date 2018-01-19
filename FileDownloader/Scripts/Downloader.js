@@ -17,14 +17,8 @@
         }
     }
 
-    var url = "http://localhost:64069/Values/DownloadMultipleFile?data=" + encodeURIComponent(JSON.stringify(checkedValues));
-    xhr.open("GET", url, true);
+    var url = "http://localhost:64069/api/Values/DownloadMultipleFile"
+    xhr.open("POST", url, true);
     xhr.setRequestHeader("Content-type", "application/json");
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState === 4 && xhr.status === 200) {
-            var json = JSON.parse(xhr.responseText);
-            console.log(json);
-        }
-    };
-    xhr.send();
+    xhr.send(JSON.stringify(checkedValues));
 }
