@@ -254,3 +254,6 @@ config/applicationhost.config
 
 */bin/*
 */obj/*
+**/.suo/**
+.vs/FileDownloader/v15/.suo
+.vs/FileDownloader/v15/.suo/**
