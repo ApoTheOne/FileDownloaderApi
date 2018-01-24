@@ -254,3 +254,4 @@ config/applicationhost.config
 .vs/*
 *bin*
 *obj*
+FileDownloader/temp/**

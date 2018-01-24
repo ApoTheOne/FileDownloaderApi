@@ -257,3 +257,4 @@ config/applicationhost.config
 **/.suo/**
 .vs/FileDownloader/v15/.suo
 .vs/FileDownloader/v15/.suo/**
+FileDownloader/temp/**

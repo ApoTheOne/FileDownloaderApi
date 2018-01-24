@@ -74,14 +74,23 @@ namespace FileDownloader.Controllers
                 }
 
                 zip.Save(temp + "\\" +"ZipDownload.zip");
-                var pushStreamContent = new PushStreamContent((stream, content, context) =>
-                {
-                    zip.Save(stream);
-                    stream.Close(); // After save we close the stream to signal that we are done writing.
-                }, "application/zip");
 
-                return new HttpResponseMessage(HttpStatusCode.OK) { Content = pushStreamContent };
-            }
+                HttpResponseMessage response = new HttpResponseMessage(HttpStatusCode.OK);
+                var fileStream = new FileStream(temp + "\\" + "ZipDownload.zip", FileMode.Open);
+                response.Content = new StreamContent(fileStream);
+                response.Content.Headers.ContentType = new MediaTypeHeaderValue("application/zip");
+                response.Content.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment");
+                response.Content.Headers.ContentDisposition.FileName = DateTime.Now.ToLongDateString();
+                return response;
+
+                //var pushStreamContent = new PushStreamContent((stream, content, context) =>
+                //{
+                //    zip.Save(stream);
+                //    stream.Close(); // After save we close the stream to signal that we are done writing.
+                //}, "application/zip");
+
+                //return new HttpResponseMessage(HttpStatusCode.OK) { Content = pushStreamContent };
+            }            
         }
 
         // PUT api/values/5
